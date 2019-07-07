@@ -1,8 +1,9 @@
 package br.ufal.ic.testingtools.stack;
 
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
@@ -14,8 +15,7 @@ import org.junit.experimental.categories.Category;
 @Category({DesktopTests.class, MainFrameTests.class})
 public class StackTest {
 	
-	private static final int INT_1 = 1;
-	private static final int INT_2 = 2;
+	private static final Integer INTEGER_1 = new Integer(1);
 	private static final Integer INTEGER_2 = new Integer(2);
 	private static final Integer INTEGER_18 = new Integer(18);
 	private static final Integer INTEGER_22 = new Integer(22);
@@ -39,8 +39,8 @@ public class StackTest {
 		stack.push(INTEGER_18);
 		stack.push(null);
 		
-		assertEquals(INT_2, stack.size());
-		assertNull(stack.peek());
+		assertThat(INTEGER_2, is(stack.size()));
+		assertThat(null, equalTo(stack.peek()));
 	}
 	
 	@Test
@@ -48,9 +48,9 @@ public class StackTest {
 		stack.push(INTEGER_18);
 		stack.push(INTEGER_22);
 
-		assertEquals(INT_2, stack.size());
-		assertSame(INTEGER_22, stack.pop());
-		assertSame(INTEGER_18, stack.pop());
+		assertThat(INTEGER_2, is(stack.size()));
+		assertThat(INTEGER_22, is(stack.pop()));
+		assertThat(INTEGER_18, is(stack.pop()));
 	}
 	
 	@Test(expected = OverFlowStackException.class)
@@ -67,8 +67,8 @@ public class StackTest {
 
 		Integer element = stack.peek();
 		
-		assertSame(INTEGER_18, element);
-		assertEquals(INT_2, stack.size());
+		assertThat(INTEGER_18, is(element));
+		assertThat(INTEGER_2, is(stack.size()));
 	}
 	
 	@Test
@@ -78,7 +78,7 @@ public class StackTest {
 			stack.peek();
 			fail("Stack underflow does not work.");
 		} catch (UnderflowStackException e) {
-			assertEquals("Underflow", e.getMessage());
+			assertThat("Underflow", equalTo(e.getMessage()));
 		}
 	}
 	
@@ -86,18 +86,18 @@ public class StackTest {
 	public void testPop() {
 		stack.push(INTEGER_18);
 		stack.push(INTEGER_22);
-		assertEquals(INT_2, stack.size());
+		assertThat(INTEGER_2, is(stack.size()));
 
 		Integer element = stack.pop();
 		
-		assertSame(INTEGER_22, element);
-		assertEquals(INT_1, stack.size());
-		assertSame(INTEGER_18, stack.peek());
+		assertThat(INTEGER_22, is(element));
+		assertThat(INTEGER_1, is(stack.size()));
+		assertThat(INTEGER_18, is(stack.peek()));
 	}
 	
 	@Test(expected = RuntimeException.class)
 	public void testPopEmptyStack() {
-		assertNull(stack.pop());
+		stack.pop();
 	}
 	
 	@After
