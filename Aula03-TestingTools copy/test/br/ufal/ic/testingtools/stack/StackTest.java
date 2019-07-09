@@ -12,6 +12,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
+import br.ufal.ic.testingtools.category.DesktopTests;
+import br.ufal.ic.testingtools.category.MainFrameTests;
+
 @Category({DesktopTests.class, MainFrameTests.class})
 public class StackTest {
 	

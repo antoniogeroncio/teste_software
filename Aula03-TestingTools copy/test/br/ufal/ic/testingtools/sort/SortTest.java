@@ -9,7 +9,7 @@ import org.junit.Test;
 
 public abstract class SortTest {
 	
-	private static final int TIMEOUT_100000 = 100000;
+	private static final int TIMEOUT_TEST_30000 = 30000;
 
 	private static final int TIMEOUT_PERFORMANCE_1000 = 1000;
 
@@ -35,7 +35,7 @@ public abstract class SortTest {
 		assertThat(elementsSize, is(elements.length));
 	}
 	
-	@Test(timeout = TIMEOUT_100000)
+	@Test(timeout = TIMEOUT_TEST_30000)
 	public void testSort() {
 		sortTest.sort(elements);
 		for (int i = 0; i < (elements.length -1); i++) {

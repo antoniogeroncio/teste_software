@@ -5,11 +5,10 @@ import org.junit.experimental.categories.Categories.IncludeCategory;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite.SuiteClasses;
 
-import br.ufal.ic.testingtools.category.DesktopTests;
-import br.ufal.ic.testingtools.category.MainFrameTests;
+import br.ufal.ic.testingtools.category.ExceptionTests;
 
 @RunWith(Categories.class)
-@IncludeCategory({DesktopTests.class, MainFrameTests.class})
-@SuiteClasses({StackTest.class, ComputersTest.class})
+@IncludeCategory({ExceptionTests.class})
+@SuiteClasses({ExceptionTest.class, GenericTest.class})
 
-public class ComputersSuite { }
+public class CategorySuite { }
