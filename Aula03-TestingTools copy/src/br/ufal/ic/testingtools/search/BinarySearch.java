@@ -26,7 +26,7 @@ public class BinarySearch {
 		Sort sort = null;
 		if(v.length>0) {
 			sort = new QuickSort();
-			sort.sort(v);	
+			sort.sort(v);
 		}
 	}
 

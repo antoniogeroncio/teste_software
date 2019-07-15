@@ -18,8 +18,9 @@ public class SelectionSort implements Sort {
 	}
 	
 	private void swap(int[] elements, int indexElement1, int indexElement2) {
+		int swap = elements[indexElement1];
 		elements[indexElement1] = elements[indexElement2];
-		elements[indexElement2] = elements[indexElement1];
+		elements[indexElement2] = swap;
 	}
 
 }
