@@ -38,7 +38,7 @@ public abstract class SortTest {
 		}
 	}
 	
-	private void inicializeArray(int elementsSize){
+	protected void inicializeArray(int elementsSize){
 		this.setElementsSize(elementsSize);
 		elements = new int[elementsSize];
 		for (int i = 0; i < elementsSize; ++i) {
@@ -46,7 +46,7 @@ public abstract class SortTest {
 		}
 	}
 	
-	private void setElementsSize(int elementsSize) {
+	protected void setElementsSize(int elementsSize) {
 		this.elementsSize = elementsSize;
 	}
 	

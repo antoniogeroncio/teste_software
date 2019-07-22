@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>StackTest.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">AllTestsSuite (22/07/2019 09:57:02)</a> &gt; <a href="../../index.html" class="el_group">Aula03-TestingTools copy</a> &gt; <a href="../index.html" class="el_bundle">test</a> &gt; <a href="index.source.html" class="el_package">br.ufal.ic.testingtools.stack</a> &gt; <span class="el_source">StackTest.java</span></div><h1>StackTest.java</h1><pre class="source lang-java linenums">package br.ufal.ic.testingtools.stack;
+
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.experimental.categories.Category;
+
+import br.ufal.ic.testingtools.category.DesktopTests;
+import br.ufal.ic.testingtools.category.MainFrameTests;
+
+@Category({DesktopTests.class, MainFrameTests.class})
+<span class="fc" id="L19">public class StackTest {</span>
+	
+<span class="fc" id="L21">	private static final Integer INTEGER_1 = new Integer(1);</span>
+<span class="fc" id="L22">	private static final Integer INTEGER_2 = new Integer(2);</span>
+<span class="fc" id="L23">	private static final Integer INTEGER_18 = new Integer(18);</span>
+<span class="fc" id="L24">	private static final Integer INTEGER_22 = new Integer(22);</span>
+	
+<span class="fc" id="L26">	private static final String MSG_THE_INITIAL_STACK_IS_NOT_EMPTY = &quot;The initial stack is not empty&quot;;</span>
+	
+	private Stack&lt;Integer&gt; stack;
+	
+	@Before
+	public void setUp() {
+<span class="fc" id="L32">		stack = new Stack&lt;Integer&gt;(INTEGER_2);</span>
+<span class="fc" id="L33">	}</span>
+	
+	@Test
+	public void testEmptyStack() {
+<span class="fc" id="L37">		assertTrue(MSG_THE_INITIAL_STACK_IS_NOT_EMPTY, stack.empty());</span>
+<span class="fc" id="L38">	}</span>
+	
+	@Test
+	public void testPushElementNull() {
+<span class="fc" id="L42">		stack.push(INTEGER_18);</span>
+<span class="fc" id="L43">		stack.push(null);</span>
+		
+<span class="fc" id="L45">		assertThat(INTEGER_2, is(stack.size()));</span>
+<span class="fc" id="L46">		assertThat(null, equalTo(stack.peek()));</span>
+<span class="fc" id="L47">	}</span>
+	
+	@Test
+	public void testPush() {
+<span class="fc" id="L51">		stack.push(INTEGER_18);</span>
+<span class="fc" id="L52">		stack.push(INTEGER_22);</span>
+
+<span class="fc" id="L54">		assertThat(INTEGER_2, is(stack.size()));</span>
+<span class="fc" id="L55">		assertThat(INTEGER_22, is(stack.pop()));</span>
+<span class="fc" id="L56">		assertThat(INTEGER_18, is(stack.pop()));</span>
+<span class="fc" id="L57">	}</span>
+	
+	@Test(expected = OverFlowStackException.class)
+	public void testPushOverFlow() {
+<span class="fc" id="L61">		stack.push(INTEGER_18);</span>
+<span class="fc" id="L62">		stack.push(INTEGER_18);	</span>
+<span class="nc" id="L63">		stack.push(INTEGER_18);</span>
+<span class="nc" id="L64">	}</span>
+	
+	@Test
+	public void testPeek() {
+<span class="fc" id="L68">		stack.push(INTEGER_22);</span>
+<span class="fc" id="L69">		stack.push(INTEGER_18);</span>
+
+<span class="fc" id="L71">		Integer element = stack.peek();</span>
+		
+<span class="fc" id="L73">		assertThat(INTEGER_18, is(element));</span>
+<span class="fc" id="L74">		assertThat(INTEGER_2, is(stack.size()));</span>
+<span class="fc" id="L75">	}</span>
+	
+	@Test
+	public void testPeekUnderflowStack() {
+<span class="fc" id="L79">		assertEquals(0, stack.size());</span>
+		try {
+<span class="nc" id="L81">			stack.peek();</span>
+<span class="nc" id="L82">			fail(&quot;Stack underflow does not work.&quot;);</span>
+<span class="pc" id="L83">		} catch (UnderflowStackException e) {</span>
+<span class="fc" id="L84">			assertThat(&quot;Underflow&quot;, equalTo(e.getMessage()));</span>
+		}
+<span class="fc" id="L86">	}</span>
+	
+	@Test
+	public void testPop() {
+<span class="fc" id="L90">		stack.push(INTEGER_18);</span>
+<span class="fc" id="L91">		stack.push(INTEGER_22);</span>
+<span class="fc" id="L92">		assertThat(INTEGER_2, is(stack.size()));</span>
+
+<span class="fc" id="L94">		Integer element = stack.pop();</span>
+		
+<span class="fc" id="L96">		assertThat(INTEGER_22, is(element));</span>
+<span class="fc" id="L97">		assertThat(INTEGER_1, is(stack.size()));</span>
+<span class="fc" id="L98">		assertThat(INTEGER_18, is(stack.peek()));</span>
+<span class="fc" id="L99">	}</span>
+	
+	@Test(expected = RuntimeException.class)
+	public void testPopEmptyStack() {
+<span class="nc" id="L103">		stack.pop();</span>
+<span class="nc" id="L104">	}</span>
+	
+	@After
+	public void tearDown() {
+<span class="fc" id="L108">		stack = null;</span>
+<span class="fc" id="L109">	}</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span>AllTestsSuite (22/07/2019 09:57:02)</div></body></html>

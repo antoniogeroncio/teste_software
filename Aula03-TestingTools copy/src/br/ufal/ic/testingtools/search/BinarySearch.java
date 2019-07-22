@@ -15,7 +15,7 @@ public class BinarySearch {
 				 begin = middle + 1;
 			 } else if (v[middle] > element) {
 				 end = middle - 1;
-			 } else if (v[middle] == element) {
+			 } else {
 				 return middle;
 			 }
 		 }
